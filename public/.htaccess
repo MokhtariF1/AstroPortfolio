@@ -3,6 +3,11 @@ AddDefaultCharset UTF-8
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteRule ^posts/ساخت-crawler-قابل-resume-python/?$ /posts/resumable-python-crawler/ [R=301,L,NE]
+  RewriteRule ^posts/شروع-وبلاگ-حسین-مختاری/?$ /posts/welcome-to-hossein-mokhtari-blog/ [R=301,L,NE]
+  RewriteRule ^posts/طراحی-importer-idempotent-postgresql/?$ /posts/idempotent-postgresql-importer/ [R=301,L,NE]
+  RewriteRule ^posts/طراحی-ledger-رزرو-بودجه-laravel/?$ /posts/laravel-ledger-budget-reservation/ [R=301,L,NE]
+  RewriteRule ^posts/طراحی-state-machine-دستیار-هوشمند-فارسی/?$ /posts/persian-ai-assistant-state-machine/ [R=301,L,NE]
   RewriteRule ^en/?$ / [R=301,L,NE]
   RewriteRule ^en/(.*)$ /$1 [R=301,L,NE]
   RewriteCond %{HTTPS} !=on [OR]

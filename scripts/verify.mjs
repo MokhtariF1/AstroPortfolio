@@ -88,10 +88,10 @@ for (const postFile of postFiles) {
 }
 
 const plannedDrafts = [
-  "طراحی-state-machine-دستیار-هوشمند-فارسی.md",
-  "ساخت-crawler-قابل-resume-python.md",
-  "طراحی-importer-idempotent-postgresql.md",
-  "طراحی-ledger-رزرو-بودجه-laravel.md",
+  "persian-ai-assistant-state-machine.md",
+  "resumable-python-crawler.md",
+  "idempotent-postgresql-importer.md",
+  "laravel-ledger-budget-reservation.md",
 ];
 for (const draftFile of plannedDrafts) {
   const path = join(postDirectory, draftFile);

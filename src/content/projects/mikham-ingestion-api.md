@@ -12,9 +12,9 @@ sourceNotes:
   ["قرارداد استخراج WordPress", "payload ثبت Laravel و mapping شناسه‌ها"]
 relatedPosts:
   - title: "طراحی State Machine برای دستیار هوشمند فارسی"
-    href: "/posts/طراحی-state-machine-دستیار-هوشمند-فارسی/"
+    href: "/posts/persian-ai-assistant-state-machine/"
   - title: "طراحی Importer پایدار و Idempotent با PostgreSQL"
-    href: "/posts/طراحی-importer-idempotent-postgresql/"
+    href: "/posts/idempotent-postgresql-importer/"
 ---
 
 ## مسئله

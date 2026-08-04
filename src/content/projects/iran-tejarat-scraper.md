@@ -11,7 +11,7 @@ schemaType: "SoftwareSourceCode"
 sourceNotes: ["CLIهای crawler و importer", "مدل snapshot و وضعیت needs_review"]
 relatedPosts:
   - title: "ساخت Crawler قابل Resume در Python"
-    href: "/posts/ساخت-crawler-قابل-resume-python/"
+    href: "/posts/resumable-python-crawler/"
 ---
 
 ## زمینه و محدودیت

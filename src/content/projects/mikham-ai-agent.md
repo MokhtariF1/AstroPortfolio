@@ -15,7 +15,7 @@ sourceNotes:
   ]
 relatedPosts:
   - title: "طراحی State Machine برای دستیار هوشمند فارسی"
-    href: "/posts/طراحی-state-machine-دستیار-هوشمند-فارسی/"
+    href: "/posts/persian-ai-assistant-state-machine/"
 ---
 
 ## زمینه و هدف

@@ -15,7 +15,7 @@ sourceNotes:
   ]
 relatedPosts:
   - title: "طراحی Ledger و رزرو بودجه در Laravel برای جلوگیری از پرداخت تکراری"
-    href: "/posts/طراحی-ledger-رزرو-بودجه-laravel/"
+    href: "/posts/laravel-ledger-budget-reservation/"
 ---
 
 ## زمینه و هدف
