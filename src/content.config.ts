@@ -50,6 +50,14 @@ const projects = defineCollection({
       .enum(["SoftwareSourceCode", "CreativeWork"])
       .default("SoftwareSourceCode"),
     sourceNotes: z.array(z.string()).default([]),
+    relatedPosts: z
+      .array(
+        z.object({
+          title: z.string(),
+          href: z.string().startsWith("/posts/"),
+        })
+      )
+      .default([]),
   }),
 });
 

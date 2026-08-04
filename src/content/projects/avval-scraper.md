@@ -13,6 +13,11 @@ sourceNotes:
     "مدل‌های SQLAlchemy و migrationهای Alembic",
     "claim اتمیک worker و streaming export",
   ]
+relatedPosts:
+  - title: "ساخت Crawler قابل Resume در Python"
+    href: "/posts/ساخت-crawler-قابل-resume-python/"
+  - title: "طراحی Importer پایدار و Idempotent با PostgreSQL"
+    href: "/posts/طراحی-importer-idempotent-postgresql/"
 ---
 
 ## مسئله و هدف

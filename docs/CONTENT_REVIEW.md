@@ -14,15 +14,15 @@ Case Studyها و مقاله‌ها از روی ساختار کد، مدل‌ه�
 | ابزارها | ChapYar، Rubika Uploader | نام عمومی، کامل‌بودن و stack نهایی |
 | وب‌سایت | Mikham CEO Profile | نام عمومی پروژه، نقش و امکان اشاره به فناوری‌ها |
 
-## چهار مقاله draft
+## چهار مقاله منتشرشده
 
 - [ ] State Machine: transitionها، revision، confirmation و idempotency با نسخه واقعی کد تطابق دارند.
 - [ ] Crawler: snapshot، lease، retry و جداسازی importer با پروژه‌های Avval/IranTejarat تطابق دارند.
 - [ ] Importer: Frozen Payload، `SKIP LOCKED` و unknown outcome جزئیات محرمانه مقصد را آشکار نمی‌کنند.
 - [ ] Ledger: مدل خزانه، reservation، policy و برداشت با Mecoin تطابق دارد.
 - [ ] snippetها برای انتشار عمومی یک بار دستی بررسی شده‌اند.
-- [ ] تاریخ انتشار به روز واقعی انتشار تغییر کرده است.
-- [ ] فقط مقاله هفته جاری از `draft: true` به `draft: false` تغییر کرده است.
+- [x] تاریخ انتشار به روز واقعی انتشار تغییر کرده است.
+- [x] هر چهار مقاله بنا به تصمیم حسین در 2026-08-04 از حالت draft خارج شده‌اند.
 
 ## اطلاعاتی که عمداً منتشر نشده‌اند
 

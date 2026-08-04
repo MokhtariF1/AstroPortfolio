@@ -1,11 +1,11 @@
 ---
 title: "طراحی Importer پایدار و Idempotent با PostgreSQL"
 description: "معماری importer با صف دیتابیسی، SKIP LOCKED، payload منجمد، idempotency key و مدیریت نتیجه نامشخص درخواست."
-pubDatetime: 2026-08-24
+pubDatetime: 2026-08-04
 author: "حسین مختاری"
 tags: ["Python", "PostgreSQL", "Importer", "Idempotency"]
 featured: false
-draft: true
+draft: false
 ogImage: "/images/articles/idempotent-importer-cover-16x9.svg"
 ---
 
@@ -206,4 +206,4 @@ Importer پایدار یک حلقه POST نیست. عملیات منطقی با�
 
 مهم‌ترین اصل این معماری پذیرفتن «نتیجه نامشخص» به‌عنوان state درجه‌اول است. شبکه همیشه به ما اجازه نمی‌دهد فوراً بفهمیم چه اتفاقی افتاده است. وقتی این واقعیت در مدل داده حضور داشته باشد، reconciliation، alert و review مسیر روشن دارند. وقتی پنهان شود، سیستم یا داده را جا می‌اندازد یا با retryهای بی‌احتیاط رکورد تکراری می‌سازد.
 
-برای دیدن زمینه این معماری می‌توانید [Case Study پلتفرم داده میخوام](/projects/mikham-data-platform/)، [Mikham Ingestion API](/projects/mikham-ingestion-api/) و [Avval Scraper و Importer](/projects/avval-scraper/) را بخوانید. مقاله crawler نیز درباره نیمه دریافت داده و checkpoint توضیح می‌دهد.
+برای دیدن زمینه این معماری می‌توانید [Case Study پلتفرم داده میخوام](/projects/mikham-data-platform/)، [Mikham Ingestion API](/projects/mikham-ingestion-api/) و [Avval Scraper و Importer](/projects/avval-scraper/) را بخوانید. [مقاله Crawler قابل Resume](/posts/ساخت-crawler-قابل-resume-python/) نیز نیمه دریافت داده و checkpoint را توضیح می‌دهد.

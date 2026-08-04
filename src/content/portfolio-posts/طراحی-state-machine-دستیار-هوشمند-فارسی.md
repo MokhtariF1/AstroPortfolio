@@ -1,11 +1,11 @@
 ---
 title: "طراحی State Machine برای دستیار هوشمند فارسی؛ از گفت‌وگو تا داده معتبر"
 description: "تجربه طراحی یک دستیار فارسی با Draft نسخه‌دار، اعتبارسنجی Pydantic، تأیید صریح و ثبت idempotent در سرویس مقصد."
-pubDatetime: 2026-08-10
+pubDatetime: 2026-08-04
 author: "حسین مختاری"
 tags: ["هوش مصنوعی", "Python", "FastAPI", "State Machine"]
 featured: false
-draft: true
+draft: false
 ogImage: "/images/articles/state-machine-cover-16x9.svg"
 ---
 
@@ -213,4 +213,4 @@ State Machine پیچیدگی را حذف نمی‌کند؛ آن را قابل م
 
 این معماری برای هر چت‌بات ساده لازم نیست. اگر سیستم فقط پاسخ اطلاعاتی می‌دهد و داده‌ای را تغییر نمی‌دهد، ممکن است طراحی سبک‌تری کافی باشد. اما هرجا Agent قرار است حساب بسازد، سفارش ثبت کند یا داده تولیدی را تغییر دهد، بهتر است پرسش اصلی این نباشد که «prompt چقدر خوب است؟»؛ باید پرسید «چه کسی اجازه اثر جانبی را صادر می‌کند و نتیجه آن چگونه قابل اثبات است؟»
 
-جزئیات خلاصه پروژه در [Case Study دستیار هوشمند ثبت کسب‌وکار](/projects/mikham-ai-agent/) و معماری ورود داده مرتبط در [Mikham Ingestion API](/projects/mikham-ingestion-api/) آمده است.
+جزئیات خلاصه پروژه در [Case Study دستیار هوشمند ثبت کسب‌وکار](/projects/mikham-ai-agent/) و معماری ورود داده مرتبط در [Mikham Ingestion API](/projects/mikham-ingestion-api/) آمده است. برای بررسی سمت جمع‌آوری داده نیز [مقاله ساخت Crawler قابل Resume](/posts/ساخت-crawler-قابل-resume-python/) را بخوانید.

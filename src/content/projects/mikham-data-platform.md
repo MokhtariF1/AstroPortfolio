@@ -13,6 +13,11 @@ sourceNotes:
     "crawlerها و importerهای پروژه‌های میخوام",
     "ابزارهای doctor، status، validation و export",
   ]
+relatedPosts:
+  - title: "ساخت Crawler قابل Resume در Python"
+    href: "/posts/ساخت-crawler-قابل-resume-python/"
+  - title: "طراحی Importer پایدار و Idempotent با PostgreSQL"
+    href: "/posts/طراحی-importer-idempotent-postgresql/"
 ---
 
 ## زمینه

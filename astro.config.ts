@@ -75,7 +75,7 @@ export default defineConfig({
     sitemap({
       filter: page => {
         const pathname = new URL(page).pathname;
-        return !["/404.html", "/search/", "/archives/", "/tags/"].some(
+        return !["/404.html", "/search/", "/tags/"].some(
           path => pathname === path || pathname.startsWith(path)
         );
       },

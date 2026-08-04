@@ -96,7 +96,7 @@ const plannedDrafts = [
 for (const draftFile of plannedDrafts) {
   const path = join(postDirectory, draftFile);
   const content = await readFile(path, "utf8");
-  if (!/^draft:\s*true\s*$/m.test(content)) errors.push(`${draftFile} must remain draft until human review`);
+  if (!/^draft:\s*false\s*$/m.test(content)) errors.push(`${draftFile} must be published`);
   const body = content.split("---").slice(2).join("---");
   const wordCount = body.split(/\s+/u).filter(Boolean).length;
   if (wordCount < 2200 || wordCount > 3200) {
@@ -114,4 +114,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Portfolio verification passed (${projectCount} projects, ${postFiles.length} post files including reviewed drafts, no obvious credentials).`);
+console.log(`Portfolio verification passed (${projectCount} projects, ${postFiles.length} published post files, no obvious credentials).`);

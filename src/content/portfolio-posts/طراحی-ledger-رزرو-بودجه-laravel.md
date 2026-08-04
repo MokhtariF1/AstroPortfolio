@@ -1,11 +1,11 @@
 ---
 title: "طراحی Ledger و رزرو بودجه در Laravel برای جلوگیری از پرداخت تکراری"
 description: "تجربه طراحی دفتر کل، خزانه، رزرو بودجه، policy نسخه‌دار و چرخه برداشت در یک محصول مأموریت‌محور Laravel."
-pubDatetime: 2026-08-31
+pubDatetime: 2026-08-04
 author: "حسین مختاری"
 tags: ["Laravel", "Ledger", "دیتابیس", "هم‌زمانی"]
 featured: false
-draft: true
+draft: false
 ogImage: "/images/articles/laravel-ledger-cover-16x9.svg"
 ---
 
@@ -227,4 +227,4 @@ MySQL و PostgreSQL جزئیات lock و isolation متفاوت دارند. تک
 
 این طراحی نسخه جهانی کیف پول نیست و برای هر محصول کوچک لازم نمی‌شود. اما اگر سیستم باید به پرسش «این پول چرا و چند بار جابه‌جا شد؟» پاسخ قابل اثبات بدهد، ثبت رویداد و مرز عملیات از یک ستون balance قابل اعتمادتر است.
 
-شرح کوتاه محصول در [Case Study پروژه Mecoin](/projects/mecoin/) قرار دارد. مقاله importer نیز الگوی مشابه نتیجه نامشخص و idempotency را در ارتباط با API خارجی بررسی می‌کند.
+شرح کوتاه محصول در [Case Study پروژه Mecoin](/projects/mecoin/) قرار دارد. [مقاله Importer پایدار و Idempotent](/posts/طراحی-importer-idempotent-postgresql/) نیز الگوی مشابه نتیجه نامشخص را در ارتباط با API خارجی بررسی می‌کند.

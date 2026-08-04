@@ -101,6 +101,20 @@ const breadcrumbSchema = {
       </section>
       <article class="app-prose mx-auto max-w-4xl px-8 py-16 sm:px-12 md:py-24">
         <Content />
+        {
+          project.data.relatedPosts.length > 0 && (
+            <aside aria-labelledby="related-posts-title">
+              <h2 id="related-posts-title">مطالعه بیشتر درباره معماری پروژه</h2>
+              <ul>
+                {project.data.relatedPosts.map(post => (
+                  <li>
+                    <a href={post.href}>{post.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )
+        }
       </article>
     </main>
     <Footer />

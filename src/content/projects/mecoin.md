@@ -13,6 +13,9 @@ sourceNotes:
     "مدل‌ها و سرویس‌های economy و withdrawal",
     "تست‌های concurrency، feature و Playwright",
   ]
+relatedPosts:
+  - title: "طراحی Ledger و رزرو بودجه در Laravel برای جلوگیری از پرداخت تکراری"
+    href: "/posts/طراحی-ledger-رزرو-بودجه-laravel/"
 ---
 
 ## زمینه و هدف

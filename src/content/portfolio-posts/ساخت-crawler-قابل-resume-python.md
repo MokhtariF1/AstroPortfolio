@@ -1,11 +1,11 @@
 ---
 title: "ساخت Crawler قابل Resume در Python؛ مدیریت قطعی شبکه، State و Deduplication"
 description: "تجربه طراحی crawler طولانی با checkpoint پایدار، snapshot، retry کنترل‌شده، deduplication و امکان توقف و ادامه امن."
-pubDatetime: 2026-08-17
+pubDatetime: 2026-08-04
 author: "حسین مختاری"
 tags: ["Python", "Crawler", "Data Pipeline", "PostgreSQL"]
 featured: false
-draft: true
+draft: false
 ogImage: "/images/articles/resumable-crawler-cover-16x9.svg"
 ---
 
@@ -198,4 +198,4 @@ Crawler قابل Resume از یک حلقه سریع ساخته نمی‌شود؛
 
 مهم‌تر از همه، crawler و importer دو مسئله متفاوت‌اند. اولی داده منبع را قابل بازیابی می‌کند و دومی اثر جانبی روی مقصد دارد. وقتی این مرز روشن باشد، قطع شبکه، تغییر parser و اجرای دوباره به یک بحران مبهم تبدیل نمی‌شوند؛ هرکدام state و مسیر بازیابی خود را دارند.
 
-نسخه خلاصه معماری را در [Case Study پلتفرم داده میخوام](/projects/mikham-data-platform/)، [Avval Scraper](/projects/avval-scraper/) و [IranTejarat Scraper](/projects/iran-tejarat-scraper/) نوشته‌ام. مقاله مکمل درباره importer و نتیجه نامشخص، مرحله بعد همین مجموعه است.
+نسخه خلاصه معماری را در [Case Study پلتفرم داده میخوام](/projects/mikham-data-platform/)، [Avval Scraper](/projects/avval-scraper/) و [IranTejarat Scraper](/projects/iran-tejarat-scraper/) نوشته‌ام. ادامه این جریان در [مقاله طراحی Importer پایدار و Idempotent](/posts/طراحی-importer-idempotent-postgresql/) توضیح داده شده است.

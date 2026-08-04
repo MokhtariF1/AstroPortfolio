@@ -13,6 +13,9 @@ sourceNotes:
     "قراردادهای Pydantic و session state",
     "جریان confirmation و فراخوانی importer",
   ]
+relatedPosts:
+  - title: "طراحی State Machine برای دستیار هوشمند فارسی"
+    href: "/posts/طراحی-state-machine-دستیار-هوشمند-فارسی/"
 ---
 
 ## زمینه و هدف
