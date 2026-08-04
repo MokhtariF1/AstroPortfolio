@@ -11,7 +11,12 @@ const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
 ---
 
-<Layout title={`${t.notFound.title} | ${config.site.title}`}>
+<Layout
+  title={`${t.notFound.title} | ${config.site.title}`}
+  description="صفحه موردنظر در وب‌سایت حسین مختاری پیدا نشد؛ از این صفحه به خانه یا بخش‌های اصلی برگردید."
+  canonicalURL="https://hosseinmokhtari.ir/404.html"
+  noindex
+>
   <Header />
 
   <main

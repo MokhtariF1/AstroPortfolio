@@ -1,59 +1,108 @@
 ---
+import type { CollectionEntry } from "astro:content";
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 import Layout from "@/layouts/Layout.astro";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
-import type { Project } from "@/data/projects";
-import type { PortfolioLanguage } from "@/data/portfolio";
 import { getPortfolioConfig } from "@/data/portfolio";
 
-const { project, lang } = Astro.props as { project: Project; lang: PortfolioLanguage };
-const site = getPortfolioConfig(lang);
-const isFa = lang === "fa";
-const prefix = isFa ? "" : "/en";
-const canonicalPath = `${prefix}/projects/${project.slug}/`;
-const alternatePath = `${isFa ? "/en" : ""}/projects/${project.slug}/`;
-const labels = isFa
-  ? { back: "بازگشت به پروژه‌ها", challenge: "مسئله", solution: "راه‌حل", architecture: "معماری" }
-  : { back: "Back to projects", challenge: "Challenge", solution: "Solution", architecture: "Architecture" };
-const schema = {
+const { project, Content } = Astro.props as {
+  project: CollectionEntry<"projects">;
+  Content: AstroComponentFactory;
+};
+const site = getPortfolioConfig();
+const canonicalURL = `https://hosseinmokhtari.ir/projects/${project.id}/`;
+const projectSchema = {
   "@context": "https://schema.org",
-  "@type": "SoftwareSourceCode",
-  name: project.title[lang],
-  description: project.summary[lang],
-  url: `https://hosseinmokhtari.ir${canonicalPath}`,
-  author: { "@id": "https://hosseinmokhtari.ir/#person" },
-  programmingLanguage: project.stack,
+  "@type": project.data.schemaType,
+  "@id": `${canonicalURL}#project`,
+  name: project.data.title,
+  description: project.data.description,
+  url: canonicalURL,
+  inLanguage: "fa-IR",
+  author: { "@id": "https://hosseinmokhtari.ir/about/#person" },
+  ...(project.data.schemaType === "SoftwareSourceCode"
+    ? { programmingLanguage: project.data.stack }
+    : {}),
+};
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "خانه",
+      item: "https://hosseinmokhtari.ir/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "پروژه‌ها",
+      item: "https://hosseinmokhtari.ir/#projects",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: project.data.title,
+      item: canonicalURL,
+    },
+  ],
 };
 ---
 
-<Layout lang={lang} dir={isFa ? "rtl" : "ltr"} title={`${project.title[lang]} | ${site.name}`} description={project.summary[lang]} canonicalURL={`https://hosseinmokhtari.ir${canonicalPath}`} alternateURL={`https://hosseinmokhtari.ir${alternatePath}`}>
-  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+<Layout
+  title={`${project.data.seoTitle} | ${site.name}`}
+  description={project.data.description}
+  ogImage={`/og/projects/${project.id}.svg`}
+  ogImageAlt={`تصویر معرفی پروژه ${project.data.title}`}
+  canonicalURL={canonicalURL}
+  jsonLd={[projectSchema, breadcrumbSchema]}
+>
   <div class="portfolio-page">
-    <Header {lang} />
+    <Header />
     <main id="main-content" data-pagefind-body>
-      <section class="relative isolate overflow-hidden bg-white px-8 pb-16 pt-28 dark:bg-slate-950 sm:px-12 md:min-h-[70vh] md:px-24 md:pb-24 md:pt-40">
-        <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:200px_200px] opacity-50 dark:opacity-10"></div>
+      <section
+        class="relative isolate overflow-hidden bg-white px-8 pt-28 pb-16 sm:px-12 md:px-24 md:pt-40 md:pb-24 dark:bg-slate-950"
+      >
+        <div
+          class="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:200px_200px] opacity-50 dark:opacity-10"
+        >
+        </div>
         <div class="mx-auto max-w-7xl">
-          <a href={`${prefix}/#projects`} class="text-sm text-gray-600 underline decoration-dashed underline-offset-4 dark:text-gray-300">← {labels.back}</a>
-          <p class="mt-12 font-mono text-sm" style="color:var(--accent)">{project.category[lang]}</p>
-          <h1 class="mt-3 max-w-5xl text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-6xl lg:text-8xl">{project.title[lang]}</h1>
-          <p class="mt-8 max-w-4xl text-lg leading-relaxed text-gray-600 dark:text-gray-300 sm:text-2xl">{project.summary[lang]}</p>
-          <div class="mt-8 flex flex-wrap gap-2">{project.stack.map(skill => <span class="rounded-lg bg-gray-900 px-3 py-1.5 text-sm font-medium text-white dark:bg-gray-100 dark:text-gray-900">{skill}</span>)}</div>
+          <a
+            href="/#projects"
+            class="text-sm text-gray-600 underline decoration-dashed underline-offset-4 dark:text-gray-300"
+            >← بازگشت به پروژه‌ها</a
+          >
+          <p class="mt-12 font-mono text-sm" style="color:var(--accent)">
+            {project.data.category}
+          </p>
+          <h1
+            class="mt-3 max-w-5xl text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl dark:text-gray-100"
+          >
+            {project.data.title}
+          </h1>
+          <p
+            class="mt-8 max-w-4xl text-lg leading-relaxed text-gray-600 sm:text-2xl dark:text-gray-300"
+          >
+            {project.data.description}
+          </p>
+          <div class="mt-8 flex flex-wrap gap-2">
+            {
+              project.data.stack.map(skill => (
+                <span class="rounded-lg bg-gray-900 px-3 py-1.5 text-sm font-medium text-white dark:bg-gray-100 dark:text-gray-900">
+                  {skill}
+                </span>
+              ))
+            }
+          </div>
         </div>
       </section>
-      <section class="space-y-8 p-8 sm:p-12 md:p-16 lg:p-24">
-        {[{ title: labels.challenge, body: project.challenge[lang] }, { title: labels.solution, body: project.solution[lang] }].map(item => (
-          <article class="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-16">
-            <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 lg:col-span-4 sm:text-4xl">{item.title}</h2>
-            <p class="text-lg leading-relaxed text-gray-600 dark:text-gray-300 lg:col-span-8 sm:text-xl">{item.body}</p>
-          </article>
-        ))}
-        <article class="grid grid-cols-1 items-start gap-8 pt-8 lg:grid-cols-12 lg:gap-16">
-          <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 lg:col-span-4 sm:text-4xl">{labels.architecture}</h2>
-          <ol class="space-y-4 lg:col-span-8">{project.architecture[lang].map((item, index) => <li class="rounded-2xl border border-gray-200 bg-gray-50 p-6 text-lg text-gray-700 dark:border-slate-700 dark:bg-slate-900 dark:text-gray-200"><span class="me-4 font-mono" style="color:var(--accent)">0{index + 1}</span>{item}</li>)}</ol>
-        </article>
-      </section>
+      <article class="app-prose mx-auto max-w-4xl px-8 py-16 sm:px-12 md:py-24">
+        <Content />
+      </article>
     </main>
-    <Footer {lang} />
+    <Footer />
   </div>
 </Layout>

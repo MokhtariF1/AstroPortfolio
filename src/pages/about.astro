@@ -16,6 +16,33 @@ if (!about) {
 }
 
 const { Content } = await render(about);
+const person = {
+  "@type": "Person",
+  "@id": "https://hosseinmokhtari.ir/about/#person",
+  name: "حسین مختاری",
+  alternateName: "Hossein Mokhtari",
+  url: "https://hosseinmokhtari.ir/about/",
+  jobTitle: "برنامه‌نویس بک‌اند، Python و سیستم‌های هوش مصنوعی",
+  knowsAbout: [
+    "Python",
+    "FastAPI",
+    "Laravel",
+    "PostgreSQL",
+    "اتوماسیون",
+    "Crawler",
+    "سیستم‌های هوش مصنوعی",
+  ],
+  sameAs: ["https://github.com/MokhtariF1", "https://t.me/Ho3einMokhtari"],
+};
+const profileSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": "https://hosseinmokhtari.ir/about/#profile",
+  url: "https://hosseinmokhtari.ir/about/",
+  name: about.data.title,
+  inLanguage: "fa-IR",
+  mainEntity: person,
+};
 ---
 
 <Layout
@@ -23,6 +50,8 @@ const { Content } = await render(about);
   description={about.data.description}
   ogImage={about.data.ogImage}
   canonicalURL={about.data.canonicalURL}
+  pageType="profile"
+  jsonLd={profileSchema}
 >
   <Header />
 

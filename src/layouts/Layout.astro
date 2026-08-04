@@ -1,7 +1,6 @@
 ---
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
-import { getRelativeLocaleUrl } from "astro:i18n";
 import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
 import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
@@ -11,10 +10,12 @@ type Props = {
   title?: string;
   description?: string;
   ogImage?: string;
+  ogImageAlt?: string;
   canonicalURL?: string;
-  alternateURL?: string;
-  lang?: "fa" | "en";
-  dir?: "rtl" | "ltr";
+  dir?: "rtl";
+  noindex?: boolean;
+  pageType?: "website" | "article" | "profile";
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 };
 
 const { site } = config;
@@ -23,32 +24,37 @@ const {
   title = site.title,
   description = site.description,
   ogImage = resolveDefaultOgImagePath(config),
+  ogImageAlt = title,
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
-  alternateURL,
-  lang = (Astro.currentLocale ?? site.lang) as "fa" | "en",
-  dir = lang === "fa" ? "rtl" : "ltr",
+  dir = "rtl",
+  noindex = false,
+  pageType = "website",
+  jsonLd,
 } = Astro.props;
 
 const socialImageURL = new URL(ogImage, Astro.site ?? Astro.url);
-const rssHref = getRelativeLocaleUrl(
-  lang,
-  "rss.xml"
-);
+const rssHref = getAssetPath("rss.xml");
+
+const structuredData = jsonLd
+  ? Array.isArray(jsonLd)
+    ? jsonLd
+    : [jsonLd]
+  : [];
 ---
 
 <!doctype html>
-<html
-  dir={dir}
-  lang={lang === "fa" ? "fa-IR" : "en"}
-  class="overflow-y-scroll scroll-smooth"
->
+<html dir={dir} lang="fa-IR" class="overflow-y-scroll scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href={getAssetPath("favicon.svg")} />
     <link rel="canonical" href={canonicalURL} />
-    <link rel="alternate" hreflang={lang === "fa" ? "en" : "fa-IR"} href={alternateURL ?? new URL(lang === "fa" ? "/en/" : "/", Astro.site).href} />
-    <link rel="alternate" hreflang="x-default" href={new URL("/", Astro.site).href} />
+    <meta
+      name="robots"
+      content={noindex
+        ? "noindex,follow"
+        : "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"}
+    />
     <meta name="generator" content={Astro.generator} />
 
     <!-- Font -->
@@ -65,13 +71,14 @@ const rssHref = getRelativeLocaleUrl(
     <link rel="sitemap" href={getAssetPath("sitemap-index.xml")} />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={pageType} />
     <meta property="og:site_name" content={site.title} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:locale" content={lang === "fa" ? "fa_IR" : "en_US"} />
+    <meta property="og:locale" content="fa_IR" />
     <meta property="og:image" content={socialImageURL} />
+    <meta property="og:image:alt" content={ogImageAlt} />
 
     <!-- Twitter / X -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -79,6 +86,7 @@ const rssHref = getRelativeLocaleUrl(
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />
+    <meta property="twitter:image:alt" content={ogImageAlt} />
 
     <!-- RSS autodiscovery -->
     <link
@@ -93,6 +101,16 @@ const rssHref = getRelativeLocaleUrl(
 
     <!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) -->
     <slot name="head" />
+
+    {
+      structuredData.map(item => (
+        <script
+          type="application/ld+json"
+          is:inline
+          set:html={JSON.stringify(item)}
+        />
+      ))
+    }
 
     {
       site.googleVerification && (

@@ -7,29 +7,45 @@ import Projects from "@/components/portfolio/Projects.astro";
 import Footer from "@/components/portfolio/Footer.astro";
 import { getPortfolioConfig } from "@/data/portfolio";
 
-const site = getPortfolioConfig("fa");
+const site = getPortfolioConfig();
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
-  "@id": "https://hosseinmokhtari.ir/#person",
+  "@id": "https://hosseinmokhtari.ir/about/#person",
   name: site.name,
   alternateName: "Hossein Mokhtari",
-  url: "https://hosseinmokhtari.ir/",
-  jobTitle: "Backend, Python and AI Systems Developer",
+  url: "https://hosseinmokhtari.ir/about/",
+  jobTitle: "برنامه‌نویس بک‌اند، Python و سیستم‌های هوش مصنوعی",
   sameAs: [site.social.github, site.social.telegram],
   knowsAbout: site.skills,
 };
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://hosseinmokhtari.ir/#website",
+  url: "https://hosseinmokhtari.ir/",
+  name: "حسین مختاری",
+  alternateName: "Hossein Mokhtari",
+  inLanguage: "fa-IR",
+  creator: { "@id": "https://hosseinmokhtari.ir/about/#person" },
+};
 ---
 
-<Layout lang="fa" dir="rtl" title={`${site.name} | ${site.title}`} description={site.description} canonicalURL="https://hosseinmokhtari.ir/" alternateURL="https://hosseinmokhtari.ir/en/">
-  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+<Layout
+  dir="rtl"
+  title={`${site.name} | ${site.title}`}
+  description={site.description}
+  canonicalURL="https://hosseinmokhtari.ir/"
+  ogImageAlt="حسین مختاری، برنامه‌نویس بک‌اند و Python"
+  jsonLd={[websiteSchema, personSchema]}
+>
   <div class="portfolio-page">
-    <Header lang="fa" />
+    <Header />
     <main id="main-content" data-pagefind-body>
-      <Hero lang="fa" />
-      <About lang="fa" />
-      <Projects lang="fa" />
+      <Hero />
+      <About />
+      <Projects />
     </main>
-    <Footer lang="fa" />
+    <Footer />
   </div>
 </Layout>

@@ -1,6 +1,7 @@
 ---
 import Layout from "./Layout.astro";
 import config from "@/config";
+import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
 
 type Props = {
   title?: string;
@@ -16,28 +17,75 @@ const { site } = config;
 const { title, description, ogImage, canonicalURL, pubDatetime, modDatetime } =
   Astro.props;
 
+const pageURL = canonicalURL ?? new URL(Astro.url.pathname, Astro.site).href;
+const articleImage = new URL(
+  ogImage ?? resolveDefaultOgImagePath(config),
+  Astro.site ?? Astro.url
+).href;
+const articleImages = [articleImage];
+if (articleImage.endsWith("-16x9.svg")) {
+  articleImages.push(
+    articleImage.replace("-16x9.svg", "-4x3.svg"),
+    articleImage.replace("-16x9.svg", "-1x1.svg")
+  );
+}
+
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
+  "@id": `${pageURL}#article`,
+  mainEntityOfPage: { "@type": "WebPage", "@id": pageURL },
   headline: title ?? site.title,
-  image: ogImage,
+  description,
+  image: articleImages,
   ...(pubDatetime && { datePublished: pubDatetime.toISOString() }),
   ...(modDatetime && { dateModified: modDatetime.toISOString() }),
   author: [
     {
       "@type": "Person",
+      "@id": "https://hosseinmokhtari.ir/about/#person",
       name: site.author,
-      ...(site.profile && { url: site.profile }),
+      url: "https://hosseinmokhtari.ir/about/",
+      sameAs: ["https://github.com/MokhtariF1", "https://t.me/Ho3einMokhtari"],
+    },
+  ],
+};
+const breadcrumbData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "خانه",
+      item: "https://hosseinmokhtari.ir/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "وبلاگ",
+      item: "https://hosseinmokhtari.ir/posts/",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: title ?? site.title,
+      item: pageURL,
     },
   ],
 };
 ---
 
-<Layout {title} {description} {ogImage} {canonicalURL}>
+<Layout
+  {title}
+  {description}
+  {ogImage}
+  ogImageAlt={title}
+  canonicalURL={pageURL}
+  pageType="article"
+  jsonLd={[structuredData, breadcrumbData]}
+>
   <Fragment slot="head">
-    <!-- Override og:type for article pages -->
-    <meta property="og:type" content="article" />
-
     {
       pubDatetime && (
         <meta
@@ -54,12 +102,6 @@ const structuredData = {
         />
       )
     }
-
-    <script
-      type="application/ld+json"
-      is:inline
-      set:html={JSON.stringify(structuredData)}
-    />
   </Fragment>
 
   <slot />

@@ -14,7 +14,6 @@
 5. SSL دامنه را در cPanel فعال کنید.
 6. این آدرس‌ها را بررسی کنید:
    - `https://hosseinmokhtari.ir/`
-   - `https://hosseinmokhtari.ir/en/`
    - `https://hosseinmokhtari.ir/projects/`
    - `https://hosseinmokhtari.ir/blog/`
    - `https://hosseinmokhtari.ir/robots.txt`

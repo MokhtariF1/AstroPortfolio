@@ -4,15 +4,24 @@ import { extname, join, relative } from "node:path";
 const root = process.cwd();
 const required = [
   "src/pages/index.astro",
-  "src/pages/en/index.astro",
   "src/pages/projects/[slug].astro",
   "src/pages/posts/[...page].astro",
   "src/pages/rss.xml.ts",
   "src/pages/robots.txt.ts",
-  "src/data/projects.ts",
+  "src/content/projects",
+  "docs/SEO_STRATEGY.md",
   "public/.htaccess",
 ];
 const errors = [];
+
+async function exists(path) {
+  try {
+    await stat(path);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 for (const path of required) {
   try { await stat(join(root, path)); }
@@ -47,11 +56,26 @@ async function walk(directory) {
 
 await walk(root);
 
-const projectsSource = await readFile(join(root, "src/data/projects.ts"), "utf8");
-const projectSlugs = [...projectsSource.matchAll(/slug:\s*"([a-z0-9-]+)"/g)].map(match => match[1]);
+const projectDirectory = join(root, "src/content/projects");
+const projectFiles = (await readdir(projectDirectory)).filter(name => /\.mdx?$/i.test(name) && !name.startsWith("_"));
+const projectSlugs = projectFiles.map(name => name.replace(/\.mdx?$/i, ""));
 const projectCount = projectSlugs.length;
-if (projectCount < 12) errors.push(`Expected at least 12 portfolio projects, found ${projectCount}`);
+if (projectCount !== 17) errors.push(`Expected 17 portfolio projects, found ${projectCount}`);
 if (new Set(projectSlugs).size !== projectSlugs.length) errors.push("Duplicate project slug detected");
+const projectTitles = new Set();
+const projectDescriptions = new Set();
+for (const projectFile of projectFiles) {
+  const content = await readFile(join(projectDirectory, projectFile), "utf8");
+  for (const field of ["title", "seoTitle", "description", "category", "stack", "status", "order"]) {
+    if (!new RegExp(`^${field}:`, "m").test(content)) errors.push(`Missing ${field} in ${projectFile}`);
+  }
+  const title = content.match(/^seoTitle:\s*["'](.+?)["']\s*$/m)?.[1];
+  const description = content.match(/^description:\s*["'](.+?)["']\s*$/m)?.[1];
+  if (title && projectTitles.has(title)) errors.push(`Duplicate project SEO title: ${title}`);
+  if (description && projectDescriptions.has(description)) errors.push(`Duplicate project description in ${projectFile}`);
+  if (title) projectTitles.add(title);
+  if (description) projectDescriptions.add(description);
+}
 
 const postDirectory = join(root, "src/content/portfolio-posts");
 const postFiles = (await readdir(postDirectory)).filter(name => /\.(md|mdx)$/i.test(name) && !name.startsWith("_"));
@@ -68,4 +92,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Portfolio verification passed (${projectCount} projects, ${postFiles.length} published post, no obvious credentials).`);
+console.log(`Portfolio verification passed (${projectCount} projects, ${postFiles.length} post files including reviewed drafts, no obvious credentials).`);

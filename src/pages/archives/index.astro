@@ -27,7 +27,11 @@ const filteredPosts = posts.filter(postFilter);
 const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
 ---
 
-<Layout title={`${t.pages.archivesTitle} | ${config.site.title}`}>
+<Layout
+  title={`${t.pages.archivesTitle} | ${config.site.title}`}
+  description="آرشیو زمانی نوشته‌های فنی حسین مختاری درباره Python، بک‌اند، اتوماسیون، داده و هوش مصنوعی."
+  noindex={filteredPosts.length < 5}
+>
   <Header />
 
   <Breadcrumb />

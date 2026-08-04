@@ -73,12 +73,16 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      filter: page =>
-        config.features?.showArchives !== false || !page.endsWith("/archives/"),
+      filter: page => {
+        const pathname = new URL(page).pathname;
+        return !["/404.html", "/search/", "/archives/", "/tags/"].some(
+          path => pathname === path || pathname.startsWith(path)
+        );
+      },
     }),
   ],
   i18n: {
-    locales: ["fa", "en"],
+    locales: ["fa"],
     defaultLocale: "fa",
     routing: {
       prefixDefaultLocale: false,

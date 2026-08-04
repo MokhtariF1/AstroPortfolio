@@ -1,8 +1,6 @@
 ---
-import type { PortfolioLanguage } from "@/data/portfolio";
 import { getPortfolioConfig } from "@/data/portfolio";
-const { lang = "fa" } = Astro.props as { lang?: PortfolioLanguage };
-const siteConfig = getPortfolioConfig(lang);
+const siteConfig = getPortfolioConfig();
 ---
 
 <div
@@ -157,7 +155,7 @@ const siteConfig = getPortfolioConfig(lang);
       siteConfig.social?.email && (
         <a
           href={`mailto:${siteConfig.social.email}`}
-          aria-label="Email"
+          aria-label="ایمیل حسین مختاری"
           class="transition-colors duration-300 hover:text-[var(--accent-color)]"
         >
           <svg
