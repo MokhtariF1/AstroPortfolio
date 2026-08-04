@@ -1,0 +1,23 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/portfolio/Header.astro";
+import Hero from "@/components/portfolio/Hero.astro";
+import About from "@/components/portfolio/About.astro";
+import Projects from "@/components/portfolio/Projects.astro";
+import Footer from "@/components/portfolio/Footer.astro";
+import { getPortfolioConfig } from "@/data/portfolio";
+
+const site = getPortfolioConfig("en");
+---
+
+<Layout lang="en" dir="ltr" title={`${site.name} | ${site.title}`} description={site.description} canonicalURL="https://hosseinmokhtari.ir/en/" alternateURL="https://hosseinmokhtari.ir/">
+  <div class="portfolio-page">
+    <Header lang="en" />
+    <main id="main-content" data-pagefind-body>
+      <Hero lang="en" />
+      <About lang="en" />
+      <Projects lang="en" />
+    </main>
+    <Footer lang="en" />
+  </div>
+</Layout>

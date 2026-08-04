@@ -1,0 +1,35 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/portfolio/Header.astro";
+import Hero from "@/components/portfolio/Hero.astro";
+import About from "@/components/portfolio/About.astro";
+import Projects from "@/components/portfolio/Projects.astro";
+import Footer from "@/components/portfolio/Footer.astro";
+import { getPortfolioConfig } from "@/data/portfolio";
+
+const site = getPortfolioConfig("fa");
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://hosseinmokhtari.ir/#person",
+  name: site.name,
+  alternateName: "Hossein Mokhtari",
+  url: "https://hosseinmokhtari.ir/",
+  jobTitle: "Backend, Python and AI Systems Developer",
+  sameAs: [site.social.github, site.social.telegram],
+  knowsAbout: site.skills,
+};
+---
+
+<Layout lang="fa" dir="rtl" title={`${site.name} | ${site.title}`} description={site.description} canonicalURL="https://hosseinmokhtari.ir/" alternateURL="https://hosseinmokhtari.ir/en/">
+  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  <div class="portfolio-page">
+    <Header lang="fa" />
+    <main id="main-content" data-pagefind-body>
+      <Hero lang="fa" />
+      <About lang="fa" />
+      <Projects lang="fa" />
+    </main>
+    <Footer lang="fa" />
+  </div>
+</Layout>

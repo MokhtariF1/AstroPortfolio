@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#fafafa"/>
+  <circle cx="108" cy="106" r="36" fill="#18181b"/>
+  <text x="108" y="114" text-anchor="middle" font-family="monospace" font-size="21" font-weight="700" fill="#fafafa">HM</text>
+  <text x="80" y="300" font-family="Tahoma,Arial,sans-serif" font-size="78" font-weight="700" fill="#18181b">Hossein Mokhtari</text>
+  <text x="80" y="382" font-family="Tahoma,Arial,sans-serif" font-size="38" fill="#2563eb">Backend, Python &amp; AI Developer</text>
+  <text x="80" y="510" font-family="monospace" font-size="26" fill="#71717a">hosseinmokhtari.ir</text>
+</svg>

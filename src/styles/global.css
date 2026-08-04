@@ -1,0 +1,76 @@
+@import "tailwindcss";
+@import "./theme.css";
+@import "./typography.css";
+@import "rehype-callouts/theme/obsidian";
+
+@font-face {
+  font-family: "Vazirmatn Local";
+  src: url("/fonts/vazirmatn-arabic.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200D, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+@font-face {
+  font-family: "Vazirmatn Local";
+  src: url("/fonts/vazirmatn-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0000-024F;
+}
+
+[dir="rtl"] body { font-family: "Vazirmatn Local", Tahoma, sans-serif; }
+
+[data-theme="dark"] .portfolio-page :where(.text-gray-900, .text-gray-800) { color: var(--portfolio-heading); }
+[data-theme="dark"] .portfolio-page :where(.text-gray-700, .text-gray-600) { color: var(--portfolio-copy); }
+[data-theme="dark"] .portfolio-page .text-gray-500 { color: #94a3b8; }
+[data-theme="dark"] .portfolio-page .bg-white { background-color: var(--portfolio-surface); }
+[data-theme="dark"] .portfolio-page :where(.bg-gray-50, .bg-gray-100) { background-color: var(--portfolio-surface-soft); }
+[data-theme="dark"] .portfolio-page :where(.border-gray-100, .border-gray-200, .border-gray-300) { border-color: var(--portfolio-grid); }
+
+.portfolio-page { background: var(--background); color: var(--foreground); }
+.portfolio-hero { background: var(--background); }
+.portfolio-hero-gradient {
+  --hero-origin: 0%;
+  background:
+    radial-gradient(ellipse 800px 1200px at var(--hero-origin) 0%, var(--portfolio-hero-start) 0%, var(--portfolio-hero-mid) 42%, var(--portfolio-hero-end) 72%),
+    var(--background);
+}
+[dir="rtl"] .portfolio-hero-gradient { --hero-origin: 100%; }
+.portfolio-hero-pattern { stroke: var(--portfolio-grid); }
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@layer base {
+  * {
+    @apply border-border outline-accent/75;
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-muted) transparent;
+  }
+  a,
+  button {
+    @apply outline-accent outline-offset-1 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@utility max-w-app {
+  @apply max-w-3xl;
+}
+
+@utility app-layout {
+  @apply max-w-app mx-auto w-full px-4;
+}
+
+@utility active-nav {
+  @apply underline decoration-wavy decoration-2 underline-offset-8;
+}
+
+:target {
+  scroll-margin-block: 1rem;
+}
