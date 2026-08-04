@@ -87,6 +87,28 @@ for (const postFile of postFiles) {
   }
 }
 
+const plannedDrafts = [
+  "طراحی-state-machine-دستیار-هوشمند-فارسی.md",
+  "ساخت-crawler-قابل-resume-python.md",
+  "طراحی-importer-idempotent-postgresql.md",
+  "طراحی-ledger-رزرو-بودجه-laravel.md",
+];
+for (const draftFile of plannedDrafts) {
+  const path = join(postDirectory, draftFile);
+  const content = await readFile(path, "utf8");
+  if (!/^draft:\s*true\s*$/m.test(content)) errors.push(`${draftFile} must remain draft until human review`);
+  const body = content.split("---").slice(2).join("---");
+  const wordCount = body.split(/\s+/u).filter(Boolean).length;
+  if (wordCount < 2200 || wordCount > 3200) {
+    errors.push(`${draftFile} has ${wordCount} words; expected 2200-3200`);
+  }
+  for (const image of content.matchAll(/(?:ogImage:\s*["']|src=["'])(\/images\/articles\/[^"']+)/g)) {
+    if (!(await exists(join(root, "public", image[1].replace(/^\//, ""))))) {
+      errors.push(`${draftFile} references missing image ${image[1]}`);
+    }
+  }
+}
+
 if (errors.length) {
   console.error("Portfolio verification failed:\n- " + [...new Set(errors)].join("\n- "));
   process.exit(1);
