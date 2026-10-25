@@ -3,6 +3,9 @@ import { extname, join, relative } from "node:path";
 
 const root = process.cwd();
 const dist = join(root, "dist");
+const blogEnabled = !/\bblog:\s*false\b/.test(
+  await readFile(join(root, "astro-paper.config.ts"), "utf8")
+);
 const htmlFiles = [];
 const sitemapFiles = [];
 const errors = [];
@@ -45,6 +48,12 @@ const findPeople = value => {
 };
 
 await walk(dist);
+
+if (!blogEnabled) {
+  for (const path of ["posts", "tags", "archives", "search", "rss.xml"]) {
+    if (await exists(join(dist, path))) errors.push(`Disabled blog output exists: ${path}`);
+  }
+}
 
 for (const file of htmlFiles) {
   const local = relative(dist, file).replaceAll("\\", "/");
@@ -123,7 +132,8 @@ for (const page of pages) {
   }
 }
 
-if (htmlFiles.length < 25) errors.push(`Expected at least 25 generated HTML pages, found ${htmlFiles.length}`);
+const minimumPages = blogEnabled ? 25 : 20;
+if (htmlFiles.length < minimumPages) errors.push(`Expected at least ${minimumPages} generated HTML pages, found ${htmlFiles.length}`);
 
 if (errors.length) {
   console.error("Built-site audit failed:\n- " + [...new Set(errors)].join("\n- "));

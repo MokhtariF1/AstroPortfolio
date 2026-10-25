@@ -1,5 +1,6 @@
 ---
 import { getPortfolioConfig } from "@/data/portfolio";
+import config from "@/config";
 
 const siteConfig = getPortfolioConfig();
 const prefix = "";
@@ -25,13 +26,18 @@ const prefix = "";
           >{siteConfig.nav.projects}</a
         >
       </li>
-      <li>
-        <a
-          href="/posts/"
-          class="font-medium text-gray-700 transition-colors hover:text-black dark:text-gray-300 dark:hover:text-white"
-          >{siteConfig.nav.blog}</a
-        >
-      </li>
+      {
+        config.features.blog && (
+          <li>
+            <a
+              href="/posts/"
+              class="font-medium text-gray-700 transition-colors hover:text-black dark:text-gray-300 dark:hover:text-white"
+            >
+              {siteConfig.nav.blog}
+            </a>
+          </li>
+        )
+      }
       <li>
         <button
           id="theme-btn"
@@ -74,11 +80,16 @@ const prefix = "";
     >حسین مختاری</a
   >
   <div class="flex gap-2">
-    <a
-      href="/posts/"
-      class="rounded-full bg-white/80 px-3 py-1 text-sm shadow-sm backdrop-blur dark:bg-slate-900/80"
-      >{siteConfig.nav.blog}</a
-    >
+    {
+      config.features.blog && (
+        <a
+          href="/posts/"
+          class="rounded-full bg-white/80 px-3 py-1 text-sm shadow-sm backdrop-blur dark:bg-slate-900/80"
+        >
+          {siteConfig.nav.blog}
+        </a>
+      )
+    }
     <button
       id="theme-btn-mobile"
       type="button"

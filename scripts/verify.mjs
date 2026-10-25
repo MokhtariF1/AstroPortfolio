@@ -5,8 +5,8 @@ const root = process.cwd();
 const required = [
   "src/pages/index.astro",
   "src/pages/projects/[slug].astro",
-  "src/pages/posts/[...page].astro",
-  "src/pages/rss.xml.ts",
+  "src/blog/pages/posts/[...page].astro",
+  "src/blog/pages/rss.xml.ts",
   "src/pages/robots.txt.ts",
   "src/content/projects",
   "docs/SEO_STRATEGY.md",

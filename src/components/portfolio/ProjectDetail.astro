@@ -5,6 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 import { getPortfolioConfig } from "@/data/portfolio";
+import config from "@/config";
 
 const { project, Content } = Astro.props as {
   project: CollectionEntry<"projects">;
@@ -102,7 +103,7 @@ const breadcrumbSchema = {
       <article class="app-prose mx-auto max-w-4xl px-8 py-16 sm:px-12 md:py-24">
         <Content />
         {
-          project.data.relatedPosts.length > 0 && (
+          config.features.blog && project.data.relatedPosts.length > 0 && (
             <aside aria-labelledby="related-posts-title">
               <h2 id="related-posts-title">مطالعه بیشتر درباره معماری پروژه</h2>
               <ul>

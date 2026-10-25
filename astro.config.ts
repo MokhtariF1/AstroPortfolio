@@ -71,6 +71,30 @@ const pagefindDevPlugin = {
 export default defineConfig({
   site: config.site.url,
   integrations: [
+    {
+      name: "optional-blog",
+      hooks: {
+        "astro:config:setup": ({ injectRoute }) => {
+          if (config.features?.blog === false) return;
+          const routes = [
+            ["/posts/[...page]", "posts/[...page].astro"],
+            ["/posts/[...slug]", "posts/[...slug]/index.astro"],
+            ["/posts/[...slug]/index.png", "posts/[...slug]/index.png.ts"],
+            ["/tags", "tags/index.astro"],
+            ["/tags/[tag]/[...page]", "tags/[tag]/[...page].astro"],
+            ["/archives", "archives/index.astro"],
+            ["/search", "search.astro"],
+            ["/rss.xml", "rss.xml.ts"],
+          ];
+          for (const [pattern, entrypoint] of routes) {
+            injectRoute({
+              pattern,
+              entrypoint: `./src/blog/pages/${entrypoint}`,
+            });
+          }
+        },
+      },
+    },
     mdx(),
     sitemap({
       filter: page => {

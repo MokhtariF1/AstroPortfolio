@@ -85,22 +85,30 @@ const isActive = (path: string) => {
         <li class="col-span-2">
           <a href={`${getRelativeLocaleUrl(locale, "")}#projects`}>پروژه‌ها</a>
         </li>
-        <li class="col-span-2">
-          <a
-            href={getRelativeLocaleUrl(locale, "posts")}
-            class:list={{ "active-nav": isActive("/posts") }}
-          >
-            {t.nav.posts}
-          </a>
-        </li>
-        <li class="col-span-2">
-          <a
-            href={getRelativeLocaleUrl(locale, "tags")}
-            class:list={{ "active-nav": isActive("/tags") }}
-          >
-            {t.nav.tags}
-          </a>
-        </li>
+        {
+          features.blog && (
+            <li class="col-span-2">
+              <a
+                href={getRelativeLocaleUrl(locale, "posts")}
+                class:list={{ "active-nav": isActive("/posts") }}
+              >
+                {t.nav.posts}
+              </a>
+            </li>
+          )
+        }
+        {
+          features.blog && (
+            <li class="col-span-2">
+              <a
+                href={getRelativeLocaleUrl(locale, "tags")}
+                class:list={{ "active-nav": isActive("/tags") }}
+              >
+                {t.nav.tags}
+              </a>
+            </li>
+          )
+        }
         <li class="col-span-2">
           <a
             href={getRelativeLocaleUrl(locale, "about")}
@@ -110,7 +118,7 @@ const isActive = (path: string) => {
           </a>
         </li>
         {
-          features.showArchives && (
+          features.blog && features.showArchives && (
             <li class="col-span-2">
               <LinkButton
                 href={getRelativeLocaleUrl(locale, "archives")}
@@ -134,7 +142,7 @@ const isActive = (path: string) => {
           )
         }
         {
-          features.search !== false && (
+          features.blog && features.search !== false && (
             <li class="col-span-1 flex items-center justify-center">
               <LinkButton
                 href={getRelativeLocaleUrl(locale, "search")}

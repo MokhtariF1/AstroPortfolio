@@ -89,12 +89,16 @@ const structuredData = jsonLd
     <meta property="twitter:image:alt" content={ogImageAlt} />
 
     <!-- RSS autodiscovery -->
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title={site.title}
-      href={new URL(rssHref, Astro.site)}
-    />
+    {
+      config.features.blog && (
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={site.title}
+          href={new URL(rssHref, Astro.site)}
+        />
+      )
+    }
 
     <!-- Filled at runtime by theme.ts to match the current background colour -->
     <meta name="theme-color" content="" />

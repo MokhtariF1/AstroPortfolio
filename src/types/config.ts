@@ -34,6 +34,8 @@ interface PostsConfig {
 }
 
 interface FeaturesConfig {
+  /** Publish blog routes, navigation, RSS and related articles. Defaults to true. */
+  blog?: boolean;
   /** Enable light/dark mode toggle. Defaults to true. */
   lightAndDarkMode?: boolean;
   /**
